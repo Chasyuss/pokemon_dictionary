@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 type Pokemon = {
@@ -48,15 +49,17 @@ const page: React.FC = () => {
   return (
     <div>
       <h1 className="text-center text-2xl font-bold my-4"> 포켓몬 도감 </h1>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 m-4">
         {pokemons.map((pokemon) => (
           <li
             key={pokemon.id}
             className="bg-black p-4 rounded-lg text-center text-white cursor-pointer"
           >
-            <img
+            <Image
               src={pokemon.sprites.front_default}
               alt={pokemon.name}
+              width={96}
+              height={96}
               className="mb-2 mx-auto"
             />
             <div className="font-bold">{pokemon.korean_name}</div>
