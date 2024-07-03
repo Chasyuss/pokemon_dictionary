@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 type Pokemon = {
@@ -55,15 +56,17 @@ const page: React.FC = () => {
             key={pokemon.id}
             className="bg-black p-4 rounded-lg text-center text-white cursor-pointer"
           >
-            <Image
-              src={pokemon.sprites.front_default}
-              alt={pokemon.name}
-              width={96}
-              height={96}
-              className="mb-2 mx-auto"
-            />
-            <div className="font-bold">{pokemon.korean_name}</div>
-            <div className="text-sm">{pokemon.name}</div>
+            <Link href={`/pokemon/${pokemon.id}`}>
+              <Image
+                src={pokemon.sprites.front_default}
+                alt={pokemon.name}
+                width={96}
+                height={96}
+                className="mb-2 mx-auto"
+              />
+              <div className="font-bold">{pokemon.korean_name}</div>
+              <div className="text-sm">도감 번호: {pokemon.id}</div>
+            </Link>
           </li>
         ))}
       </ul>

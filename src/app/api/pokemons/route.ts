@@ -25,16 +25,16 @@ export const GET = async (request: Request) => {
           };
         } catch (error) {
           console.error(`Failed to fetch data for Pokemon #${id}:`, error);
-          return null; // 실패한 요청은 null을 반환
-          // return throw;
+          // return null; // 실패한 요청은 null을 반환
+          throw new Error();
         }
       }
     );
-
+    console.log(`포켓몬 데이터 :${allPokemonPromises.length}`);
     const allPokemonData = (await Promise.all(allPokemonPromises)).filter(
       Boolean
     );
-
+    console.log(`포켓몬 데이터2 :${allPokemonData.length}`);
     return NextResponse.json(allPokemonData);
   } catch (error) {
     console.error("Failed to fetch data:", error);
