@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type Pokemon = {
   id: number;
@@ -27,38 +28,41 @@ const PokemonDetail = async ({ params }: { params: { id: string } }) => {
   const pokemon: Pokemon = await fetchDetailData(params.id);
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">
-        {pokemon.korean_name} ({pokemon.name})
-      </h1>
+    <div className="max-w-md mx-auto p-4 text-center border rounded-lg m-4 bg-black text-white">
+      <h1 className="text-xl font-bold mb-4">{pokemon.korean_name}</h1>
+      <div> NO. {pokemon.id}</div>
       <Image
         src={pokemon.sprites.front_default}
         alt={pokemon.name}
-        width={200}
-        height={200}
+        width={96}
+        height={96}
         className="mx-auto"
       />
       <div className="mt-4">
+        <p> 이름: {pokemon.korean_name} </p>
         <p>
-          <strong>Height:</strong> {pokemon.height}
+          {" "}
+          키: {pokemon.height}m 무게: {pokemon.weight} kg
         </p>
-        <p>
-          <strong>Weight:</strong> {pokemon.weight}
-        </p>
-        <h2 className="text-xl font-semibold mt-4">Types</h2>
+        <h2 className="text-s mt-4"> 타입 </h2>
         <ul>
           {pokemon.types.map((type, index) => (
-            <li key={index}>
-              {type.type.korean_name} ({type.type.name})
+            <li key={index}>{type.type.korean_name}</li>
+          ))}
+        </ul>
+        <h2 className="text-xl font-semibold mt-4"> 기술 </h2>
+        <ul className="flex flex-wrap justify-center space-x-2">
+          {pokemon.moves.map((move, index) => (
+            <li key={index} className="break-keep">
+              {move.move.korean_name}
             </li>
           ))}
         </ul>
-        <h2 className="text-xl font-semibold mt-4">Abilities</h2>
-        <ul>
-          {pokemon.moves.map((move, index) => (
-            <li key={index}>{move.move.korean_name}</li>
-          ))}
-        </ul>
+        <Link href="/">
+          <div className="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+            뒤로가기
+          </div>
+        </Link>
       </div>
     </div>
   );
