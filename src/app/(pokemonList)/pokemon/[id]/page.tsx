@@ -14,7 +14,7 @@ type Pokemon = {
 };
 
 const fetchDetailData = async (id: string): Promise<Pokemon> => {
-  const response = await fetch(`http://localhost:3000/api/pokemons/${id}`); //절대 경로 사용
+  const response = await fetch(`http://localhost:3000/api/pokemons/${id}`);
   if (!response) {
     throw new Error("데이터 불러오기 에러");
   }
@@ -22,15 +22,13 @@ const fetchDetailData = async (id: string): Promise<Pokemon> => {
 };
 
 const PokemonDetail = async ({ params }: { params: { id: string } }) => {
-  // params를 써야함
-  // useClient에서는 custom hook 사용
-
   const pokemon: Pokemon = await fetchDetailData(params.id);
+  const formattedId = pokemon.id.toString().padStart(3, "0");
 
   return (
     <div className="max-w-md mx-auto p-4 text-center border rounded-lg m-4 bg-black text-white">
       <h1 className="text-xl font-bold mb-4">{pokemon.korean_name}</h1>
-      <div> NO. {pokemon.id}</div>
+      <div> NO. {formattedId}</div>
       <Image
         src={pokemon.sprites.front_default}
         alt={pokemon.name}
